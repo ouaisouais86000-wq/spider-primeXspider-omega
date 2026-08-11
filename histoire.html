@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SPIDER-PRIME — L'Histoire</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Barlow+Condensed:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+
+:root{
+  --noir: #060606;
+  --noir-panel: #0d0c0a;
+  --or: #d9a92c;
+  --or-clair: #f4d873;
+  --or-terne: #8a6a1e;
+  --sang: #7a1418;
+  --ivoire: #ece6d6;
+  --fissure: #2a2620;
+}
+
+*{margin:0;padding:0;box-sizing:border-box;}
+
+html{scroll-behavior:smooth;}
+
+body{
+  background:var(--noir);
+  color:var(--ivoire);
+  font-family:'Barlow Condensed', sans-serif;
+  overflow-x:hidden;
+  min-height:100vh;
+}
+
+@media (prefers-reduced-motion: reduce){
+  *{animation-duration:0.01ms !important; animation-iteration-count:1 !important; transition-duration:0.01ms !important;}
+}
+
+body::before{
+  content:"";
+  position:fixed;
+  inset:0;
+  background:
+    radial-gradient(ellipse at 50% -10%, rgba(217,169,44,0.08), transparent 55%),
+    radial-gradient(ellipse at 80% 110%, rgba(122,20,24,0.10), transparent 50%);
+  pointer-events:none;
+  z-index:0;
+}
+
+.grain{
+  position:fixed; inset:0; z-index:1; pointer-events:none; opacity:0.05; mix-blend-mode:overlay;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* ---------- Barre du haut ---------- */
+.topbar{
+  position:sticky;
+  top:0;
+  z-index:50;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:18px 6vw;
+  background:rgba(6,6,6,0.85);
+  backdrop-filter:blur(8px);
+  border-bottom:1px solid var(--fissure);
+}
+.back-link{
+  font-family:'Oswald', sans-serif;
+  font-size:12px;
+  letter-spacing:0.2em;
+  text-transform:uppercase;
+  color:var(--or-clair);
+  text-decoration:none;
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  opacity:0.85;
+  transition:opacity 0.2s ease;
+}
+.back-link:hover{opacity:1;}
+.topbar .mark{
+  font-family:'Oswald', sans-serif;
+  font-size:11px;
+  letter-spacing:0.35em;
+  text-transform:uppercase;
+  color:var(--sang);
+}
+
+/* ---------- En-tête de l'histoire ---------- */
+.story-hero{
+  position:relative;
+  z-index:2;
+  padding:90px 6vw 60px;
+  text-align:center;
+  max-width:900px;
+  margin:0 auto;
+}
+.eyebrow{
+  font-family:'Oswald', sans-serif;
+  font-weight:600;
+  letter-spacing:0.45em;
+  font-size:11px;
+  color:var(--sang);
+  text-transform:uppercase;
+  margin-bottom:22px;
+  border:1px solid var(--sang);
+  padding:6px 18px;
+  display:inline-block;
+  background:rgba(122,20,24,0.08);
+}
+.story-hero h1{
+  font-family:'Oswald', sans-serif;
+  font-weight:700;
+  font-size:clamp(32px,6vw,60px);
+  text-transform:uppercase;
+  letter-spacing:0.03em;
+  color:var(--or-clair);
+  text-shadow:0 0 30px rgba(217,169,44,0.2);
+  line-height:1.1;
+}
+.story-hero .subtitle{
+  font-family:'Oswald', sans-serif;
+  font-weight:500;
+  font-size:clamp(13px,2vw,17px);
+  letter-spacing:0.2em;
+  text-transform:uppercase;
+  color:var(--ivoire);
+  opacity:0.6;
+  margin-top:16px;
+}
+
+.divider{
+  display:flex;
+  align-items:center;
+  gap:14px;
+  margin:36px auto 0;
+  width:100%;
+  max-width:420px;
+}
+.divider .line{flex:1;height:1px;background:linear-gradient(90deg, transparent, var(--or-terne));}
+.divider .line.right{background:linear-gradient(90deg, var(--or-terne), transparent);}
+.divider .diamond{width:9px;height:9px;background:var(--or);transform:rotate(45deg);box-shadow:0 0 12px rgba(217,169,44,0.7);}
+
+/* ---------- Table des matières ---------- */
+.toc{
+  max-width:760px;
+  margin:56px auto 0;
+  padding:0 6vw;
+}
+.toc-title{
+  font-family:'Oswald', sans-serif;
+  font-size:12px;
+  letter-spacing:0.35em;
+  text-transform:uppercase;
+  color:var(--or-terne);
+  text-align:center;
+  margin-bottom:24px;
+}
+.toc-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit, minmax(220px, 1fr));
+  gap:10px;
+}
+.toc-item{
+  font-family:'Barlow Condensed', sans-serif;
+  font-size:15px;
+  color:var(--ivoire);
+  text-decoration:none;
+  padding:10px 16px;
+  border:1px solid var(--fissure);
+  background:linear-gradient(160deg, #120f0a, #0a0906);
+  transition:border-color 0.2s ease, transform 0.2s ease, background 0.2s ease;
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+.toc-item:hover{
+  border-color:var(--or-terne);
+  transform:translateX(4px);
+  background:linear-gradient(160deg, #17130c, #0c0a06);
+}
+.toc-item .n{
+  font-family:'Oswald', sans-serif;
+  font-size:11px;
+  color:var(--or);
+  flex-shrink:0;
+}
+
+/* ---------- Corps du récit ---------- */
+.story-body{
+  position:relative;
+  z-index:2;
+  max-width:760px;
+  margin:0 auto;
+  padding:80px 6vw 140px;
+}
+
+.chapter{
+  margin-bottom:72px;
+  scroll-margin-top:90px;
+}
+.chapter:last-child{margin-bottom:0;}
+
+.chapter-head{
+  display:flex;
+  align-items:baseline;
+  gap:16px;
+  margin-bottom:26px;
+  padding-bottom:14px;
+  border-bottom:1px solid var(--fissure);
+}
+.chapter-head .icon{
+  font-size:22px;
+  flex-shrink:0;
+}
+.chapter-head h2{
+  font-family:'Oswald', sans-serif;
+  font-weight:700;
+  font-size:clamp(19px,3vw,28px);
+  text-transform:uppercase;
+  letter-spacing:0.03em;
+  color:var(--or-clair);
+}
+
+.chapter p{
+  font-size:19px;
+  line-height:1.65;
+  color:var(--ivoire);
+  opacity:0.92;
+  margin-bottom:16px;
+}
+
+.chapter p.beat{
+  margin-bottom:4px;
+  opacity:0.85;
+}
+
+.chapter p.line{
+  margin-bottom:2px;
+}
+
+.chapter blockquote{
+  border-left:2px solid var(--or-terne);
+  padding:6px 0 6px 22px;
+  margin:22px 0;
+  font-family:'Oswald', sans-serif;
+  font-weight:500;
+  font-style:italic;
+  font-size:19px;
+  color:var(--or-clair);
+  letter-spacing:0.01em;
+}
+
+.chapter .emphasis{
+  font-family:'Oswald', sans-serif;
+  font-weight:600;
+  letter-spacing:0.1em;
+  text-transform:uppercase;
+  color:var(--or);
+  font-size:16px;
+  margin:26px 0 14px;
+}
+
+.title-drop{
+  font-family:'Oswald', sans-serif;
+  font-weight:700;
+  font-size:clamp(22px,4vw,32px);
+  letter-spacing:0.05em;
+  text-transform:uppercase;
+  color:var(--sang);
+  text-align:center;
+  margin:34px 0;
+  text-shadow:0 0 20px rgba(122,20,24,0.4);
+}
+
+/* ---------- Scène finale spéciale ---------- */
+.finale-slab{
+  margin-top:80px;
+  padding:50px 40px;
+  text-align:center;
+  background:linear-gradient(160deg, #120f0a, #0a0906);
+  border:1px solid var(--or-terne);
+  box-shadow:0 20px 50px rgba(0,0,0,0.5), inset 0 0 0 1px rgba(217,169,44,0.06);
+}
+.finale-slab .tag{
+  font-family:'Oswald', sans-serif;
+  font-size:11px;
+  letter-spacing:0.4em;
+  text-transform:uppercase;
+  color:var(--sang);
+  margin-bottom:18px;
+}
+.finale-slab .big{
+  font-family:'Oswald', sans-serif;
+  font-weight:700;
+  font-size:clamp(24px,4vw,36px);
+  letter-spacing:0.08em;
+  text-transform:uppercase;
+  color:var(--or-clair);
+  text-shadow:0 0 24px rgba(217,169,44,0.35);
+  animation:pulse-glow 2.2s ease-in-out infinite;
+}
+@keyframes pulse-glow{
+  0%,100%{text-shadow:0 0 12px rgba(217,169,44,0.25);}
+  50%{text-shadow:0 0 32px rgba(217,169,44,0.6);}
+}
+.finale-slab .teaser{
+  margin-top:22px;
+  font-size:17px;
+  line-height:1.6;
+  color:var(--ivoire);
+  opacity:0.75;
+  max-width:560px;
+  margin-left:auto;
+  margin-right:auto;
+}
+
+/* ---------- Retour en bas ---------- */
+.bottom-return{
+  text-align:center;
+  margin-top:80px;
+}
+.btn{
+  font-family:'Oswald', sans-serif;
+  font-weight:600;
+  font-size:14px;
+  letter-spacing:0.18em;
+  text-transform:uppercase;
+  color:var(--noir);
+  background:linear-gradient(135deg, var(--or-clair), var(--or) 55%, var(--or-terne));
+  border:none;
+  padding:16px 40px;
+  cursor:pointer;
+  clip-path:polygon(4% 0, 100% 0, 96% 100%, 0% 100%);
+  transition:transform 0.25s ease, box-shadow 0.25s ease;
+  box-shadow:0 8px 24px rgba(217,169,44,0.25);
+  text-decoration:none;
+  display:inline-flex;
+  align-items:center;
+  gap:10px;
+}
+.btn:hover{
+  transform:translateY(-3px) scale(1.02);
+  box-shadow:0 14px 34px rgba(217,169,44,0.4);
+}
+
+footer{
+  position:relative;
+  z-index:2;
+  padding:30px 6vw;
+  text-align:center;
+  font-family:'Oswald', sans-serif;
+  font-size:11px;
+  letter-spacing:0.2em;
+  text-transform:uppercase;
+  color:var(--or-terne);
+  opacity:0.6;
+  border-top:1px solid var(--fissure);
+}
+
+/* ---------- Bouton retour en haut ---------- */
+.to-top{
+  position:fixed;
+  bottom:24px;
+  right:24px;
+  width:46px;
+  height:46px;
+  border-radius:50%;
+  background:linear-gradient(135deg, var(--or-clair), var(--or-terne));
+  color:var(--noir);
+  border:none;
+  font-size:18px;
+  cursor:pointer;
+  box-shadow:0 8px 22px rgba(0,0,0,0.5);
+  opacity:0;
+  pointer-events:none;
+  transition:opacity 0.3s ease, transform 0.3s ease;
+  z-index:60;
+}
+.to-top.show{opacity:1; pointer-events:auto;}
+.to-top:hover{transform:translateY(-3px);}
+
+/* ============================================================
+   MOBILE
+   ============================================================ */
+@media (max-width:768px){
+  .topbar{padding:14px 5vw;}
+  .back-link{font-size:11px;}
+  .story-hero{padding:60px 6vw 40px;}
+  .eyebrow{font-size:9px; padding:5px 12px;}
+  .story-hero .subtitle{font-size:11px;}
+  .toc{margin-top:40px;}
+  .toc-grid{grid-template-columns:1fr;}
+  .toc-item{font-size:14px; padding:12px 14px;}
+  .story-body{padding:56px 6vw 100px;}
+  .chapter{margin-bottom:54px;}
+  .chapter-head{gap:10px; margin-bottom:18px; padding-bottom:10px;}
+  .chapter-head .icon{font-size:18px;}
+  .chapter p{font-size:16.5px; line-height:1.6;}
+  .chapter blockquote{font-size:16.5px; padding-left:16px;}
+  .title-drop{font-size:20px;}
+  .finale-slab{padding:34px 20px; margin-top:56px;}
+  .finale-slab .teaser{font-size:15px;}
+  .to-top{width:40px; height:40px; bottom:16px; right:16px; font-size:16px;}
+}
+</style>
+</head>
+<body>
+
+<div class="grain"></div>
+
+<div class="topbar">
+  <a class="back-link" href="index.html">← Retour</a>
+  <span class="mark">Spider-Prime Will Return</span>
+</div>
+
+<section class="story-hero">
+  <span class="eyebrow">Le scénario complet</span>
+  <h1>Spider-Prime 1<br>The New Spider-Man</h1>
+  <p class="subtitle">L'histoire, du premier acte à la scène post-générique</p>
+  <div class="divider"><span class="line"></span><span class="diamond"></span><span class="line right"></span></div>
+</section>
+
+<nav class="toc">
+  <div class="toc-title">Sommaire</div>
+  <div class="toc-grid">
+    <a class="toc-item" href="#acte1"><span class="n">I</span> Le garçon qui voulait dépasser Stark</a>
+    <a class="toc-item" href="#a00"><span class="n">II</span> A-00</a>
+    <a class="toc-item" href="#peter"><span class="n">III</span> Peter Parker</a>
+    <a class="toc-item" href="#morsure"><span class="n">IV</span> La morsure</a>
+    <a class="toc-item" href="#naissance"><span class="n">V</span> Naissance de Spider-Prime</a>
+    <a class="toc-item" href="#deux"><span class="n">VI</span> Deux Spider-Man</a>
+    <a class="toc-item" href="#tony"><span class="n">VII</span> Tony Stark</a>
+    <a class="toc-item" href="#multivers"><span class="n">VIII</span> Le Multivers</a>
+    <a class="toc-item" href="#infinitywar"><span class="n">IX</span> Infinity War</a>
+    <a class="toc-item" href="#cinqans"><span class="n">X</span> Cinq ans</a>
+    <a class="toc-item" href="#obsession"><span class="n">XI</span> L'obsession</a>
+    <a class="toc-item" href="#antiheros"><span class="n">XII</span> Spider-Prime devient anti-héros</a>
+    <a class="toc-item" href="#verite"><span class="n">XIII</span> La vérité sur A-00</a>
+    <a class="toc-item" href="#pierre"><span class="n">XIV</span> La Pierre de Réalité</a>
+    <a class="toc-item" href="#combat"><span class="n">XV</span> Spider-Man contre Spider-Prime</a>
+    <a class="toc-item" href="#fracture"><span class="n">XVI</span> La Fracture</a>
+    <a class="toc-item" href="#choix"><span class="n">XVII</span> Le choix de Gabriel</a>
+    <a class="toc-item" href="#sacrifice"><span class="n">XVIII</span> Le sacrifice</a>
+    <a class="toc-item" href="#nouvelle"><span class="n">XIX</span> La nouvelle réalité</a>
+    <a class="toc-item" href="#derniere"><span class="n">XX</span> Dernière scène</a>
+    <a class="toc-item" href="#postgenerique"><span class="n">XXI</span> Scène post-générique</a>
+  </div>
+</nav>
+
+<main class="story-body">
+
+  <div class="chapter" id="acte1">
+    <div class="chapter-head"><span class="icon">🕷️</span><h2>Acte I — Le garçon qui voulait dépasser Stark</h2></div>
+    <p>Le film commence à New York. Gabriel Stadelmann, 16 ans, est élève au Midtown School of Science and Technology. Il n'est pas le garçon le plus populaire du lycée, mais il est probablement l'un des plus intelligents. Et surtout, Gabriel a quelque chose que Peter Parker n'a pas encore : une ambition démesurée.</p>
+    <p>Il ne veut pas simplement inventer des gadgets. Il veut construire une entreprise capable de rivaliser avec Stark Industries. Son entreprise, Stadelmann Industries, commence à attirer l'attention. Tony Stark entend parler de lui.</p>
+    <p>Tony trouve Gabriel impressionnant, mais aussi beaucoup trop sûr de lui. Les deux commencent une relation étrange : moitié rivalité, moitié mentorat. Tony voit en Gabriel une version plus jeune de lui-même. Mais il remarque aussi quelque chose de dangereux : Gabriel ne supporte pas de ne pas pouvoir résoudre un problème.</p>
+  </div>
+
+  <div class="chapter" id="a00">
+    <div class="chapter-head"><span class="icon">🧬</span><h2>Acte II — A-00</h2></div>
+    <p>Gabriel travaille secrètement dans un laboratoire. Il étudie la biologie, les mutations et les capacités d'adaptation des organismes. Son projet s'appelle ARACHNE. Son premier prototype est une araignée : A-00.</p>
+    <p>Gabriel cherche à créer un organisme capable de s'adapter extrêmement rapidement à son environnement. Mais A-00 possède une anomalie que Gabriel n'avait absolument pas prévue : son ADN réagit à certaines formes d'énergie dimensionnelle. Gabriel ne comprend pas encore ce que cela signifie. Il continue ses recherches.</p>
+  </div>
+
+  <div class="chapter" id="peter">
+    <div class="chapter-head"><span class="icon">🕸️</span><h2>Peter Parker</h2></div>
+    <p>Au lycée, Gabriel devient proche de Peter. Il le trouve bizarre. Peter disparaît constamment. Il revient avec des blessures. Il est toujours au courant des événements avant tout le monde. Gabriel commence à soupçonner quelque chose. Mais Peter cache son secret. Parce qu'il est déjà Spider-Man.</p>
+  </div>
+
+  <div class="chapter" id="morsure">
+    <div class="chapter-head"><span class="icon">⚡</span><h2>La morsure</h2></div>
+    <p>Un soir, A-00 s'échappe du laboratoire. Elle disparaît. Gabriel pense l'avoir perdue. Puis il apprend qu'une araignée correspondant à ses recherches a été retrouvée dans une zone fréquentée par Peter. Mais il ne fait pas immédiatement le lien.</p>
+    <p>Pendant ce temps, Gabriel continue son projet. Il décide de créer une seconde version de l'expérience. Mais cette fois, il se l'injecte à lui-même. Une araignée modifiée le mord. Gabriel s'effondre. Son cœur ralentit. Puis il se réveille. Il est différent.</p>
+  </div>
+
+  <div class="chapter" id="naissance">
+    <div class="chapter-head"><span class="icon">🕷️</span><h2>Naissance de Spider-Prime</h2></div>
+    <p>Gabriel découvre ses pouvoirs. Il peut soulever plusieurs tonnes, courir sur les murs, sauter sur des dizaines de mètres, réagir extrêmement rapidement, récupérer de blessures importantes, et utiliser son Spider-Sense.</p>
+    <p>Mais son Spider-Sense est particulier. Il ne ressent pas seulement le danger — il calcule. Son cerveau traite instinctivement les trajectoires, les mouvements et les possibilités. Gabriel peut presque voir une attaque avant qu'elle arrive.</p>
+    <p>Il commence à tester ses capacités, puis fabrique son premier costume : noir, rouge, métal extraterrestre, lance-toiles, technologie personnelle. Il choisit son nom :</p>
+    <div class="title-drop">Spider-Prime</div>
+  </div>
+
+  <div class="chapter" id="deux">
+    <div class="chapter-head"><span class="icon">🕷️</span><h2>Deux Spider-Man</h2></div>
+    <p>Gabriel commence à protéger New York. Les médias parlent d'un nouveau Spider-Man. Peter est immédiatement intrigué : pourquoi y a-t-il un deuxième Spider-Man ? Les deux finissent par se rencontrer. Ils se battent d'abord parce qu'ils pensent que l'autre est une menace. Puis ils découvrent leurs identités.</p>
+    <blockquote>Peter : « Attends... toi aussi ? »<br>Gabriel : « Apparemment. »</blockquote>
+    <p>Ils commencent alors à travailler ensemble. Mais leur philosophie est différente. Peter veut simplement aider les gens. Gabriel veut comprendre pourquoi les problèmes existent.</p>
+  </div>
+
+  <div class="chapter" id="tony">
+    <div class="chapter-head"><span class="icon">🦾</span><h2>Tony Stark</h2></div>
+    <p>Tony finit par découvrir Gabriel. Il découvre également son entreprise, et surtout A-00. Tony comprend immédiatement que Gabriel joue avec quelque chose qu'il ne comprend pas totalement. Il lui demande d'arrêter. Gabriel refuse. Une dispute éclate.</p>
+    <blockquote>Tony : « Tu n'as pas besoin de résoudre tous les problèmes du monde. »<br>Gabriel : « Alors pourquoi est-ce que tout le monde attend que les Avengers le fassent ? »</blockquote>
+    <p>Tony n'a pas vraiment de réponse. Il décide finalement de garder Gabriel près des Avengers pour pouvoir le surveiller.</p>
+  </div>
+
+  <div class="chapter" id="multivers">
+    <div class="chapter-head"><span class="icon">🌌</span><h2>Acte III — Le Multivers</h2></div>
+    <p>Gabriel commence à analyser A-00. Et là, il découvre quelque chose d'impossible : l'ADN de l'araignée semble avoir une sorte de signature commune à plusieurs réalités. Il trouve des traces similaires dans des données dimensionnelles, puis des anomalies. Un Spider-Man ici. Une Spider-Woman là. Un Spider-Man différent ailleurs.</p>
+    <p>Gabriel comprend : A-00 n'a pas simplement créé un Spider-Man. Elle a créé une empreinte biologique capable de se reproduire à travers les réalités. C'est la naissance de l'idée centrale : Gabriel est à l'origine du phénomène Spider-Man dans le Multivers.</p>
+  </div>
+
+  <div class="chapter" id="infinitywar">
+    <div class="chapter-head"><span class="icon">🟣</span><h2>Infinity War</h2></div>
+    <p>Puis Thanos arrive. Les Avengers sont mobilisés. Gabriel participe à la bataille. Il accompagne Tony et Peter jusqu'à Titan, et c'est là que Gabriel découvre les Pierres d'Infinité. Il comprend immédiatement que ces objets ne sont pas seulement des armes — ce sont des éléments fondamentaux de la réalité.</p>
+    <p>Mais Thanos gagne. Il récupère toutes les Pierres. Et claque des doigts. Gabriel disparaît.</p>
+  </div>
+
+  <div class="chapter" id="cinqans">
+    <div class="chapter-head"><span class="icon">⏳</span><h2>Cinq ans</h2></div>
+    <p>Gabriel revient cinq ans plus tard. Pour lui, presque aucun temps ne s'est écoulé. Mais Tony a changé. Les Avengers ont changé. Le monde a changé.</p>
+    <p>Puis vient la bataille finale contre Thanos. Gabriel combat aux côtés de Peter. Et Tony se sacrifie. Gabriel est là lorsque Tony meurt. C'est le moment qui transforme définitivement son personnage. Parce que Gabriel comprend : même Tony Stark n'a pas pu tout contrôler.</p>
+  </div>
+
+  <div class="chapter" id="obsession">
+    <div class="chapter-head"><span class="icon">🧠</span><h2>Acte IV — L'obsession</h2></div>
+    <p>Après Endgame, Gabriel reprend ses recherches. Mais cette fois, il va beaucoup plus loin. Il cherche A-00, le Spider-Verse, les anomalies, les événements qui semblent se répéter chez les Spider-Man. Et surtout, la Pierre de Réalité.</p>
+    <p>Gabriel finit par la retrouver, et il comprend qu'elle pourrait lui permettre de réparer les anomalies. Mais quelque chose l'effraie : plus il étudie le Multivers, plus il découvre que les différentes réalités sont déjà connectées, et que les Spider-Man sont au centre de cette connexion.</p>
+  </div>
+
+  <div class="chapter" id="antiheros">
+    <div class="chapter-head"><span class="icon">🕷️</span><h2>Spider-Prime devient un anti-héros</h2></div>
+    <p>Gabriel commence à croire que les Spider-Man sont victimes d'un système qu'ils ne comprennent pas. Les morts. Les pertes. Les événements qui se répètent. Il refuse d'accepter l'idée que les héros doivent souffrir simplement parce que leur histoire l'exige.</p>
+    <blockquote>« Si je peux empêcher une tragédie, pourquoi devrais-je la laisser arriver ? »</blockquote>
+    <p>Peter commence à avoir peur de lui. Parce que Gabriel ne veut plus seulement sauver des personnes. Il veut modifier les règles.</p>
+  </div>
+
+  <div class="chapter" id="verite">
+    <div class="chapter-head"><span class="icon">🌌</span><h2>Acte V — La vérité sur A-00</h2></div>
+    <p>Gabriel découvre enfin la vérité. A-00 n'était pas une simple araignée. Son expérience a créé une anomalie primordiale, qui s'est propagée à travers le Multivers. Elle est devenue une sorte de point commun biologique entre de nombreuses histoires de Spider-Man. C'est pourquoi des Spider-Man existent partout : Peter, Miles, Gwen, Miguel, et des milliers d'autres.</p>
+    <p>Gabriel comprend alors l'horreur : il est responsable. Il a créé quelque chose qu'il ne pourra peut-être jamais contrôler.</p>
+  </div>
+
+  <div class="chapter" id="pierre">
+    <div class="chapter-head"><span class="icon">💎</span><h2>La Pierre de Réalité</h2></div>
+    <p>Gabriel décide alors de réparer son erreur. Il utilise la Pierre de Réalité. Mais il découvre que le problème est encore plus profond : lui-même est désormais connecté à A-00. Son ADN, ses pouvoirs, son armure, la Pierre — tout est devenu lié.</p>
+    <p>Gabriel est devenu le point d'ancrage de l'anomalie. Et s'il la détruit, il disparaîtra probablement avec elle.</p>
+  </div>
+
+  <div class="chapter" id="combat">
+    <div class="chapter-head"><span class="icon">⚔️</span><h2>Acte VI — Spider-Man contre Spider-Prime</h2></div>
+    <p>Peter refuse de laisser Gabriel faire. D'autres Spider-Man arrivent : Miles, Gwen, Miguel, la Spider-Society. Tout le monde pense que Spider-Prime va détruire leurs réalités. Gabriel leur explique :</p>
+    <blockquote>« Je ne veux pas détruire votre monde. Je veux empêcher votre monde de mourir. »</blockquote>
+    <p>Mais personne ne lui fait confiance. Le combat commence, et c'est une bataille gigantesque. Spider-Prime est extrêmement puissant : son Spider-Sense lui permet de prédire les attaques, son armure extraterrestre absorbe des impacts incroyables, et la Pierre de Réalité lui permet de modifier temporairement son environnement. Mais Gabriel refuse de tuer les autres Spider-Man. Il veut simplement atteindre le point d'origine de l'anomalie.</p>
+  </div>
+
+  <div class="chapter" id="fracture">
+    <div class="chapter-head"><span class="icon">🌌</span><h2>La Fracture</h2></div>
+    <p>La bataille provoque une réaction en chaîne. Le Multivers commence à se déchirer. Des réalités se mélangent. Des villes apparaissent dans d'autres univers. Des versions différentes des mêmes personnes commencent à apparaître. Le ciel devient littéralement une mosaïque de réalités.</p>
+    <p>Gabriel comprend : il n'a plus le choix. Il doit réécrire la réalité.</p>
+  </div>
+
+  <div class="chapter" id="choix">
+    <div class="chapter-head"><span class="icon">🕷️</span><h2>Le choix de Gabriel</h2></div>
+    <p>Peter tente encore de l'arrêter. Mais Gabriel lui explique son véritable plan. Il ne veut pas détruire Spider-Man. Il ne veut pas supprimer les autres réalités. Il veut simplement supprimer son propre rôle dans leur création.</p>
+    <p>Il va faire quelque chose que personne n'a jamais fait : réécrire l'origine du Multivers sans supprimer les Spider-Man. Pour cela, Gabriel doit disparaître.</p>
+  </div>
+
+  <div class="chapter" id="sacrifice">
+    <div class="chapter-head"><span class="icon">💔</span><h2>Le sacrifice</h2></div>
+    <p>Gabriel active la Pierre de Réalité. Il retourne jusqu'au moment où A-00 allait créer l'anomalie. Il pourrait empêcher toute l'histoire. Mais il choisit autre chose : il supprime le lien entre lui et l'anomalie.</p>
+    <p>Les Spider-Man restent. Leurs univers restent. Le Multivers reste. Mais Gabriel est retiré de l'histoire. Peter essaie de le retenir.</p>
+    <blockquote>Gabriel : « Promets-moi une chose. »<br>Peter : « Quoi ? »<br>Gabriel : « Continue d'être Spider-Man. Même si personne ne se souvient de pourquoi. »</blockquote>
+    <p>Puis Gabriel disparaît.</p>
+  </div>
+
+  <div class="chapter" id="nouvelle">
+    <div class="chapter-head"><span class="icon">🌎</span><h2>La nouvelle réalité</h2></div>
+    <p>Le Multivers se stabilise. Tout recommence. Mais cette fois, Gabriel Stadelmann n'existe pas. Il n'a jamais créé Stadelmann Industries. Il n'a jamais rencontré Tony Stark. Il n'a jamais été au lycée avec Peter. Il n'a jamais créé A-00. Il n'a jamais été Spider-Prime.</p>
+    <p>Et c'est précisément pour ça qu'il n'apparaît dans aucun des films existants. La réalité a été réécrite avant leurs événements. Les histoires de Peter, Miles, Gwen et les autres peuvent continuer sans lui.</p>
+  </div>
+
+  <div class="chapter" id="derniere">
+    <div class="chapter-head"><span class="icon">🎬</span><h2>Dernière scène</h2></div>
+    <p>Peter est seul à New York. Il passe devant son ancien lycée. Il voit une vieille photo. Il reconnaît tout le monde. Mais il remarque quelque chose : une personne semble manquer. Il ne sait pas qui.</p>
+    <p>Puis il entend très brièvement :</p>
+    <blockquote>« Gabriel... »</blockquote>
+    <p>Peter se retourne. Personne. Il regarde à nouveau la photo. La place est vide.</p>
+  </div>
+
+  <div class="chapter" id="postgenerique">
+    <div class="chapter-head"><span class="icon">🕷️</span><h2>Scène post-générique</h2></div>
+    <p>Écran noir. Un battement de cœur. BOUM. Puis un autre. BOUM. Une lumière rouge s'allume. Une araignée est enfermée dans une petite capsule. Sur la capsule : A-00.</p>
+    <p>Une silhouette entre dans la pièce. Elle porte quelque chose : un fragment du masque de Spider-Prime. La personne pose le masque sur la table. Puis une voix :</p>
+    <blockquote>« Il a supprimé son existence. »<br><br>« Mais il n'a pas supprimé son héritage. »</blockquote>
+    <p>L'écran devient noir.</p>
+
+    <div class="finale-slab">
+      <div class="tag">Fin du premier film</div>
+      <div class="big">Spider-Prime Will Return</div>
+      <p class="teaser">La suite pourrait révéler que Gabriel n'est pas simplement « revenu » : une partie de sa conscience aurait survécu en dehors de la réalité réécrite, dans un espace où même les règles du Multivers ne s'appliquent plus. C'est ce qui permettrait de faire de Spider-Prime 2 une histoire encore beaucoup plus grande.</p>
+    </div>
+  </div>
+
+  <div class="bottom-return">
+    <a class="btn" href="index.html">← Retour à l'accueil</a>
+  </div>
+
+</main>
+
+<footer>Spider-Prime Will Return — Tous droits réservés</footer>
+
+<button class="to-top" id="toTop" aria-label="Retour en haut">↑</button>
+
+<script>
+const toTop = document.getElementById("toTop");
+window.addEventListener("scroll", () => {
+  if(window.scrollY > 500){
+    toTop.classList.add("show");
+  } else {
+    toTop.classList.remove("show");
+  }
+});
+toTop.addEventListener("click", () => {
+  window.scrollTo({top:0, behavior:"smooth"});
+});
+</script>
+
+</body>
+</html>
