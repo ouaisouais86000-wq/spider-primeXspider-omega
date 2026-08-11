@@ -976,7 +976,51 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 </script>
 
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  const style = document.createElement("style");
+  style.textContent = `
+    .story-link-2{
+      position:fixed;
+      top:18px;
+      right:18px;
+      z-index:50;
+      font-family:'Oswald', sans-serif;
+      font-size:12px;
+      letter-spacing:0.2em;
+      text-transform:uppercase;
+      color:var(--or-clair);
+      text-decoration:none;
+      border:1px solid var(--or-terne);
+      padding:10px 18px;
+      background:rgba(6,6,6,0.85);
+      backdrop-filter:blur(8px);
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      transition:border-color 0.2s ease, transform 0.2s ease;
+    }
+    .story-link-2:hover{
+      border-color:var(--or);
+      transform:translateY(-2px);
+    }
+    @media (max-width:560px){
+      .story-link-2{
+        top:12px; right:12px;
+        font-size:10px;
+        padding:8px 14px;
+      }
+    }
+  `;
+  document.head.appendChild(style);
 
+  const link2 = document.createElement("a");
+  link2.href = "histoire2.html";
+  link2.className = "story-link-2";
+  link2.textContent = "SPIDER-OMEGA";
+  document.body.prepend(link2);
+});
+</script>
 
    
 </body>
