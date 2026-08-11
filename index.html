@@ -927,5 +927,55 @@ document.querySelectorAll(".poster-card").forEach(card => {
   });
 });
 </script>
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  const style = document.createElement("style");
+  style.textContent = `
+    .story-link{
+      position:fixed;
+      top:18px;
+      left:18px;
+      z-index:50;
+      font-family:'Oswald', sans-serif;
+      font-size:12px;
+      letter-spacing:0.2em;
+      text-transform:uppercase;
+      color:var(--or-clair);
+      text-decoration:none;
+      border:1px solid var(--or-terne);
+      padding:10px 18px;
+      background:rgba(6,6,6,0.85);
+      backdrop-filter:blur(8px);
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      transition:border-color 0.2s ease, transform 0.2s ease;
+    }
+    .story-link:hover{
+      border-color:var(--or);
+      transform:translateY(-2px);
+    }
+    @media (max-width:560px){
+      .story-link{
+        top:12px; left:12px;
+        font-size:10px;
+        padding:8px 14px;
+      }
+    }
+  `;
+  document.head.appendChild(style);
+
+  const link = document.createElement("a");
+  link.href = "histoire.html";
+  link.className = "story-link";
+  link.textContent = "📖 Lire l'histoire";
+  document.body.prepend(link);
+});
+</script>
+
+
+
+   
 </body>
 </html>
