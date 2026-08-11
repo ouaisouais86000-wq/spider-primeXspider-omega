@@ -617,6 +617,72 @@ toTop.addEventListener("click", () => {
   window.scrollTo({top:0, behavior:"smooth"});
 });
 </script>
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  const style = document.createElement("style");
+  style.textContent = `
+    .scroll-bg-wrap{
+      position:fixed;
+      inset:0;
+      z-index:-1;
+      overflow:hidden;
+      pointer-events:none;
+    }
+    .scroll-bg-wrap img{
+      position:absolute;
+      top:50%; left:50%;
+      width:110%;
+      height:110%;
+      object-fit:cover;
+      transform:translate(-50%,-50%) scale(1);
+      filter:grayscale(0.6) brightness(0.55) saturate(0.9);
+      opacity:0.55;
+      will-change:transform, filter, opacity;
+      transition:filter 0.2s linear;
+    }
+    .scroll-bg-wrap::after{
+      content:"";
+      position:absolute;
+      inset:0;
+      background:
+        radial-gradient(ellipse at 50% 0%, transparent 30%, #060606 85%),
+        linear-gradient(180deg, rgba(6,6,6,0.4), #060606 90%);
+      pointer-events:none;
+    }
+    @media (max-width:560px){
+      .scroll-bg-wrap img{width:160%; height:160%;}
+    }
+  `;
+  document.head.appendChild(style);
 
+  const wrap = document.createElement("div");
+  wrap.className = "scroll-bg-wrap";
+  wrap.innerHTML = `<img src="AFFICHE_2.jpg" alt="">`;
+  document.body.prepend(wrap);
+
+  const img = wrap.querySelector("img");
+
+  function updateScrollBg(){
+    const scrollTop = window.scrollY;
+    const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+    const progress = docHeight > 0 ? Math.min(scrollTop / docHeight, 1) : 0;
+
+    const scale = 1 + progress * 0.35;
+    const translateY = -50 + progress * 6;
+    const grayscale = 0.6 - progress * 0.55;
+    const brightness = 0.55 + progress * 0.25;
+    const saturate = 0.9 + progress * 0.4;
+    const opacity = 0.55 - progress * 0.25;
+
+    img.style.transform = `translate(-50%, ${translateY}%) scale(${scale})`;
+    img.style.filter = `grayscale(${grayscale}) brightness(${brightness}) saturate(${saturate})`;
+    img.style.opacity = opacity;
+  }
+
+  window.addEventListener("scroll", updateScrollBg, {passive:true});
+  window.addEventListener("resize", updateScrollBg);
+  updateScrollBg();
+});
+</script>
 </body>
 </html>
