@@ -1029,6 +1029,24 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 </script>
 
+
+
+
+   <script>
+document.addEventListener("DOMContentLoaded", () => {
+  const chatBtn = document.createElement("a");
+  chatBtn.href = "https://chatgpt.com/g/g-p-6a7b9d7271fc81919f636bbd1ab6da34-spider-prime-will-return/project";
+  chatBtn.target = "_blank";
+  chatBtn.rel = "noopener";
+  chatBtn.className = "btn ghost";
+  chatBtn.textContent = "💬 Chat Histoire";
+
+  const playlistBtn = document.getElementById("playlistBtn");
+  if (playlistBtn) {
+    playlistBtn.insertAdjacentElement("afterend", chatBtn);
+  }
+});
+</script>
    
 </body>
 </html>
