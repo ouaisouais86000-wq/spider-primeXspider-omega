@@ -1,0 +1,771 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SPIDER-PRIME WILL RETURN</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Barlow+Condensed:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+
+/* ============================================================
+   ⚙️  ZONE DE CONFIGURATION — À MODIFIER PAR TOI
+   Tous les liens à remplir sont regroupés ici et dans le <script>
+   tout en bas du fichier (section CONFIG).
+   ============================================================ */
+
+:root{
+  --noir: #060606;
+  --noir-panel: #0d0c0a;
+  --or: #d9a92c;
+  --or-clair: #f4d873;
+  --or-terne: #8a6a1e;
+  --sang: #7a1418;
+  --ivoire: #ece6d6;
+  --fissure: #2a2620;
+}
+
+*{margin:0;padding:0;box-sizing:border-box;}
+
+html{scroll-behavior:smooth;}
+
+body{
+  background:var(--noir);
+  color:var(--ivoire);
+  font-family:'Barlow Condensed', sans-serif;
+  overflow-x:hidden;
+  min-height:100vh;
+}
+
+@media (prefers-reduced-motion: reduce){
+  *{animation-duration:0.01ms !important; animation-iteration-count:1 !important; transition-duration:0.01ms !important;}
+}
+
+/* ---------- Texture de fond générale ---------- */
+body::before{
+  content:"";
+  position:fixed;
+  inset:0;
+  background:
+    radial-gradient(ellipse at 50% -10%, rgba(217,169,44,0.10), transparent 55%),
+    radial-gradient(ellipse at 80% 110%, rgba(122,20,24,0.12), transparent 50%);
+  pointer-events:none;
+  z-index:0;
+}
+
+.grain{
+  position:fixed; inset:0; z-index:1; pointer-events:none; opacity:0.05; mix-blend-mode:overlay;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* ============================================================
+   HERO
+   ============================================================ */
+.hero{
+  position:relative;
+  min-height:100vh;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  padding:80px 20px 60px;
+  overflow:hidden;
+  perspective:1200px;
+}
+
+/* Toile fissurée animée derrière le logo — élément signature */
+.web-cracks{
+  position:absolute;
+  top:50%; left:50%;
+  width:min(1400px, 180vw);
+  height:min(1400px, 180vw);
+  transform:translate(-50%,-50%);
+  z-index:0;
+  opacity:0.55;
+}
+.web-cracks path{
+  fill:none;
+  stroke:var(--or-terne);
+  stroke-width:1;
+  stroke-dasharray:2000;
+  stroke-dashoffset:2000;
+  animation:draw-crack 2.8s ease-out forwards;
+}
+.web-cracks circle{
+  fill:none;
+  stroke:rgba(217,169,44,0.25);
+  stroke-width:1;
+  stroke-dasharray:900;
+  stroke-dashoffset:900;
+  animation:draw-crack 3.5s ease-out forwards;
+}
+@keyframes draw-crack{
+  to{stroke-dashoffset:0;}
+}
+
+.hero-inner{
+  position:relative;
+  z-index:2;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  width:100%;
+  max-width:1000px;
+}
+
+.eyebrow{
+  font-family:'Oswald', sans-serif;
+  font-weight:600;
+  letter-spacing:0.45em;
+  font-size:12px;
+  color:var(--sang);
+  text-transform:uppercase;
+  margin-bottom:22px;
+  border:1px solid var(--sang);
+  padding:6px 18px;
+  background:rgba(122,20,24,0.08);
+}
+
+/* Logo du film — remplace src="spider-prime-logo.png" si besoin */
+.logo-wrap{
+  width:100%;
+  max-width:820px;
+  will-change:transform;
+  transition:transform 0.15s ease-out;
+  filter:drop-shadow(0 15px 40px rgba(0,0,0,0.7)) drop-shadow(0 0 60px rgba(217,169,44,0.15));
+}
+.logo-wrap img{
+  width:100%;
+  display:block;
+}
+
+.tagline{
+  font-family:'Oswald', sans-serif;
+  font-weight:500;
+  font-size:clamp(13px,2vw,16px);
+  letter-spacing:0.25em;
+  text-transform:uppercase;
+  color:var(--ivoire);
+  opacity:0.75;
+  margin-top:10px;
+  text-align:center;
+}
+
+/* ---------- Séparateur diamant (repris du logo) ---------- */
+.divider{
+  display:flex;
+  align-items:center;
+  gap:14px;
+  margin:40px 0 34px;
+  width:100%;
+  max-width:520px;
+}
+.divider .line{
+  flex:1;
+  height:1px;
+  background:linear-gradient(90deg, transparent, var(--or-terne));
+}
+.divider .line.right{background:linear-gradient(90deg, var(--or-terne), transparent);}
+.divider .diamond{
+  width:9px;height:9px;
+  background:var(--or);
+  transform:rotate(45deg);
+  box-shadow:0 0 12px rgba(217,169,44,0.7);
+}
+
+/* ---------- Compte à rebours ---------- */
+.countdown-label{
+  font-family:'Oswald', sans-serif;
+  font-size:13px;
+  letter-spacing:0.35em;
+  text-transform:uppercase;
+  color:var(--or-terne);
+  margin-bottom:18px;
+  text-align:center;
+}
+
+.countdown{
+  display:flex;
+  gap:16px;
+  flex-wrap:wrap;
+  justify-content:center;
+}
+
+.time-block{
+  position:relative;
+  width:92px;
+  padding:18px 0 14px;
+  text-align:center;
+  background:linear-gradient(160deg, #17140f, #0a0906);
+  border:1px solid var(--fissure);
+  clip-path:polygon(10% 0, 100% 0, 100% 85%, 90% 100%, 0 100%, 0 15%);
+  box-shadow:
+    inset 0 0 0 1px rgba(217,169,44,0.08),
+    0 10px 30px rgba(0,0,0,0.6);
+}
+.time-block .num{
+  font-family:'Oswald', sans-serif;
+  font-weight:700;
+  font-size:clamp(30px,5vw,44px);
+  color:var(--or-clair);
+  text-shadow:0 0 18px rgba(217,169,44,0.35);
+  line-height:1;
+}
+.time-block .unit{
+  display:block;
+  margin-top:8px;
+  font-family:'Oswald', sans-serif;
+  font-size:10px;
+  letter-spacing:0.2em;
+  text-transform:uppercase;
+  color:var(--ivoire);
+  opacity:0.55;
+}
+
+.countdown-expired{
+  font-family:'Oswald', sans-serif;
+  letter-spacing:0.3em;
+  text-transform:uppercase;
+  color:var(--or-clair);
+  font-size:clamp(18px,3vw,26px);
+  text-align:center;
+  animation:pulse-glow 1.6s ease-in-out infinite;
+}
+@keyframes pulse-glow{
+  0%,100%{text-shadow:0 0 10px rgba(217,169,44,0.3);}
+  50%{text-shadow:0 0 28px rgba(217,169,44,0.75);}
+}
+
+/* ---------- Boutons ---------- */
+.actions{
+  margin-top:44px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:16px;
+  width:100%;
+}
+
+.btn{
+  font-family:'Oswald', sans-serif;
+  font-weight:600;
+  font-size:15px;
+  letter-spacing:0.18em;
+  text-transform:uppercase;
+  color:var(--noir);
+  background:linear-gradient(135deg, var(--or-clair), var(--or) 55%, var(--or-terne));
+  border:none;
+  padding:17px 44px;
+  cursor:pointer;
+  position:relative;
+  clip-path:polygon(4% 0, 100% 0, 96% 100%, 0% 100%);
+  transition:transform 0.25s ease, box-shadow 0.25s ease, filter 0.25s ease;
+  box-shadow:0 8px 24px rgba(217,169,44,0.25);
+  text-decoration:none;
+  display:inline-flex;
+  align-items:center;
+  gap:10px;
+}
+.btn:hover:not(:disabled){
+  transform:translateY(-3px) scale(1.02);
+  box-shadow:0 14px 34px rgba(217,169,44,0.4);
+}
+.btn:active:not(:disabled){transform:translateY(0) scale(0.99);}
+
+.btn.locked{
+  background:linear-gradient(135deg, #3a3427, #211d16);
+  color:#6b6455;
+  cursor:not-allowed;
+  box-shadow:none;
+}
+
+.btn.ghost{
+  background:transparent;
+  color:var(--or-clair);
+  border:1px solid var(--or-terne);
+  clip-path:none;
+  padding:14px 38px;
+  box-shadow:none;
+}
+.btn.ghost:hover{
+  background:rgba(217,169,44,0.08);
+  border-color:var(--or);
+}
+
+.btn.doc{
+  background:linear-gradient(135deg, #8a2c30, var(--sang) 60%, #4a0d10);
+  color:var(--ivoire);
+}
+.btn.doc:hover{box-shadow:0 14px 34px rgba(122,20,24,0.45);}
+
+.hint{
+  font-family:'Barlow Condensed', sans-serif;
+  font-size:13px;
+  letter-spacing:0.05em;
+  color:var(--ivoire);
+  opacity:0.45;
+  text-align:center;
+}
+
+.hidden{display:none !important;}
+
+/* ============================================================
+   MODALE VIDÉO
+   ============================================================ */
+.modal-overlay{
+  position:fixed; inset:0;
+  background:rgba(3,3,2,0.94);
+  z-index:100;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:24px;
+  animation:fade-in 0.4s ease forwards;
+}
+@keyframes fade-in{from{opacity:0;}to{opacity:1;}}
+
+.modal-box{
+  width:100%;
+  max-width:960px;
+  background:var(--noir-panel);
+  border:1px solid var(--or-terne);
+  padding:22px;
+  position:relative;
+  box-shadow:0 30px 80px rgba(0,0,0,0.8), 0 0 60px rgba(217,169,44,0.08);
+}
+
+.modal-close{
+  position:absolute;
+  top:-16px; right:-16px;
+  width:38px;height:38px;
+  border-radius:50%;
+  background:var(--or);
+  color:var(--noir);
+  border:none;
+  font-size:18px;
+  font-weight:700;
+  cursor:pointer;
+  box-shadow:0 6px 18px rgba(0,0,0,0.5);
+}
+
+.video-frame{
+  position:relative;
+  width:100%;
+  aspect-ratio:16/9;
+  background:#000;
+  overflow:hidden;
+}
+.video-frame video, .video-frame iframe{
+  width:100%; height:100%; border:none; display:block;
+}
+
+.after-video{
+  margin-top:20px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:14px;
+  text-align:center;
+}
+.after-video p{
+  font-family:'Oswald', sans-serif;
+  letter-spacing:0.1em;
+  text-transform:uppercase;
+  font-size:13px;
+  color:var(--or-terne);
+}
+
+/* ============================================================
+   SECTION AFFICHES
+   ============================================================ */
+.posters{
+  position:relative;
+  z-index:2;
+  padding:100px 6vw 120px;
+}
+
+.section-head{
+  text-align:center;
+  margin-bottom:60px;
+}
+.section-head .kicker{
+  font-family:'Oswald', sans-serif;
+  font-size:12px;
+  letter-spacing:0.4em;
+  text-transform:uppercase;
+  color:var(--sang);
+}
+.section-head h2{
+  font-family:'Oswald', sans-serif;
+  font-weight:700;
+  font-size:clamp(30px,5vw,52px);
+  text-transform:uppercase;
+  letter-spacing:0.03em;
+  color:var(--ivoire);
+  margin-top:10px;
+}
+
+.poster-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit, minmax(220px, 1fr));
+  gap:34px;
+  max-width:1300px;
+  margin:0 auto;
+  perspective:1400px;
+}
+
+.poster-card{
+  position:relative;
+  aspect-ratio:2/3;
+  background:#111;
+  border:1px solid var(--fissure);
+  overflow:hidden;
+  cursor:pointer;
+  transform-style:preserve-3d;
+  transition:transform 0.35s ease, box-shadow 0.35s ease;
+  box-shadow:0 20px 40px rgba(0,0,0,0.5);
+}
+.poster-card img{
+  width:100%; height:100%;
+  object-fit:cover;
+  display:block;
+  transition:transform 0.5s ease, filter 0.5s ease;
+  filter:saturate(0.85) contrast(1.05);
+}
+.poster-card:hover img{transform:scale(1.06); filter:saturate(1.05) contrast(1.1);}
+.poster-card:hover{box-shadow:0 30px 60px rgba(217,169,44,0.18);}
+
+.poster-card .shine{
+  position:absolute; inset:0;
+  background:linear-gradient(115deg, transparent 40%, rgba(217,169,44,0.18) 50%, transparent 60%);
+  transform:translateX(-120%);
+  transition:transform 0.7s ease;
+  pointer-events:none;
+}
+.poster-card:hover .shine{transform:translateX(120%);}
+
+.poster-card .cap{
+  position:absolute; left:0; right:0; bottom:0;
+  padding:14px 16px 12px;
+  background:linear-gradient(0deg, rgba(0,0,0,0.85), transparent);
+  font-family:'Oswald', sans-serif;
+  font-size:11px;
+  letter-spacing:0.15em;
+  text-transform:uppercase;
+  color:var(--or-clair);
+}
+
+/* ============================================================
+   PLAYLIST / FOOTER CTA
+   ============================================================ */
+.finale{
+  position:relative;
+  z-index:2;
+  padding:100px 6vw 140px;
+  text-align:center;
+  border-top:1px solid var(--fissure);
+}
+.finale h3{
+  font-family:'Oswald', sans-serif;
+  font-weight:700;
+  font-size:clamp(22px,3.5vw,34px);
+  text-transform:uppercase;
+  letter-spacing:0.05em;
+  margin-bottom:16px;
+}
+.finale p{
+  max-width:520px;
+  margin:0 auto 34px;
+  opacity:0.6;
+  font-size:16px;
+}
+
+footer{
+  position:relative;
+  z-index:2;
+  padding:30px 6vw;
+  text-align:center;
+  font-family:'Oswald', sans-serif;
+  font-size:11px;
+  letter-spacing:0.2em;
+  text-transform:uppercase;
+  color:var(--or-terne);
+  opacity:0.6;
+  border-top:1px solid var(--fissure);
+}
+
+@media (max-width:560px){
+  .time-block{width:70px; padding:14px 0 10px;}
+  .btn{padding:15px 30px; font-size:13px;}
+}
+</style>
+</head>
+<body>
+
+<div class="grain"></div>
+
+<!-- ============================================================
+     HERO
+============================================================ -->
+<section class="hero" id="hero">
+
+  <svg class="web-cracks" viewBox="0 0 800 800" xmlns="http://www.w3.org/2000/svg">
+    <circle cx="400" cy="400" r="120"/>
+    <circle cx="400" cy="400" r="240"/>
+    <circle cx="400" cy="400" r="360"/>
+    <path d="M400 400 L400 20"/>
+    <path d="M400 400 L620 90"/>
+    <path d="M400 400 L760 300"/>
+    <path d="M400 400 L780 480"/>
+    <path d="M400 400 L640 700"/>
+    <path d="M400 400 L420 790"/>
+    <path d="M400 400 L160 730"/>
+    <path d="M400 400 L30 520"/>
+    <path d="M400 400 L40 260"/>
+    <path d="M400 400 L190 70"/>
+    <path d="M400 400 L340 60"/>
+    <path d="M400 400 L480 45"/>
+  </svg>
+
+  <div class="hero-inner">
+    <span class="eyebrow">Événement en approche</span>
+
+    <!-- LOGO DU FILM : le fichier spider-prime-logo.png doit rester
+         dans le même dossier que ce fichier html. Tu peux aussi le
+         remplacer par un lien direct (https://...) si tu héberges
+         le logo ailleurs. -->
+    <div class="logo-wrap" id="logoWrap">
+      <img src="spider-prime-logo.png" alt="Spider-Prime Will Return">
+    </div>
+
+    <p class="tagline">La toile n'a jamais fini de se tisser</p>
+
+    <div class="divider"><span class="line"></span><span class="diamond"></span><span class="line right"></span></div>
+
+    <div class="countdown-label" id="countdownLabel">Compte à rebours avant l'ouverture — minuit, heure de Paris</div>
+
+    <div id="countdownActive" class="countdown">
+      <div class="time-block"><span class="num" id="cd-days">00</span><span class="unit">Jours</span></div>
+      <div class="time-block"><span class="num" id="cd-hours">00</span><span class="unit">Heures</span></div>
+      <div class="time-block"><span class="num" id="cd-mins">00</span><span class="unit">Minutes</span></div>
+      <div class="time-block"><span class="num" id="cd-secs">00</span><span class="unit">Secondes</span></div>
+    </div>
+
+    <div id="countdownExpired" class="countdown-expired hidden">— L'accès est ouvert —</div>
+
+    <div class="actions">
+      <button class="btn locked" id="mainBtn" disabled>
+        <span id="mainBtnText">🔒 Commencement — verrouillé</span>
+      </button>
+      <p class="hint" id="mainHint">Le bouton se déverrouille automatiquement à minuit (heure française).</p>
+
+      <a class="btn ghost" id="playlistBtn" href="#" target="_blank" rel="noopener">🎧 Écouter la playlist</a>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     MODALE VIDÉO (masquée par défaut)
+============================================================ -->
+<div class="modal-overlay hidden" id="videoModal">
+  <div class="modal-box">
+    <button class="modal-close" id="closeModal">✕</button>
+    <div class="video-frame">
+      <!-- VIDÉO : remplace la src ci-dessous par ton propre lien
+           (mp4 direct, ou remplace toute la balise par un <iframe>
+           YouTube/Vimeo si besoin — voir instructions dans le script). -->
+      <video id="mainVideo" controls playsinline>
+        <source src="LIEN_DE_LA_VIDEO_ICI.mp4" type="video/mp4">
+      </video>
+    </div>
+    <div class="after-video hidden" id="afterVideo">
+      <p>La vidéo est terminée — la suite t'attend</p>
+      <a class="btn doc" id="docBtn" href="#" target="_blank" rel="noopener">📄 Accéder au dossier</a>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================
+     GALERIE D'AFFICHES
+============================================================ -->
+<section class="posters" id="affiches">
+  <div class="section-head">
+    <span class="kicker">Galerie</span>
+    <h2>Les affiches</h2>
+  </div>
+
+  <!-- Ajoute / remplace chaque <img src="..."> par tes propres affiches.
+       Duplique un bloc .poster-card pour en ajouter davantage. -->
+  <div class="poster-grid" id="posterGrid">
+    <div class="poster-card">
+      <img src="AFFICHE_1.jpg" alt="Affiche 1">
+      <div class="shine"></div>
+      <div class="cap">Affiche 01</div>
+    </div>
+    <div class="poster-card">
+      <img src="AFFICHE_2.jpg" alt="Affiche 2">
+      <div class="shine"></div>
+      <div class="cap">Affiche 02</div>
+    </div>
+    <div class="poster-card">
+      <img src="AFFICHE_3.jpg" alt="Affiche 3">
+      <div class="shine"></div>
+      <div class="cap">Affiche 03</div>
+    </div>
+    <div class="poster-card">
+      <img src="AFFICHE_4.jpg" alt="Affiche 4">
+      <div class="shine"></div>
+      <div class="cap">Affiche 04</div>
+    </div>
+  </div>
+</section>
+
+<section class="finale">
+  <h3>Reste connecté</h3>
+  <p>La toile se retisse. Prépare-toi pour l'ouverture officielle et retrouve toute la bande-son en attendant.</p>
+  <a class="btn ghost" id="playlistBtn2" href="#" target="_blank" rel="noopener">🎧 Playlist complète</a>
+</section>
+
+<footer>Spider-Prime Will Return — Tous droits réservés</footer>
+
+<script>
+/* ============================================================
+   ⚙️  CONFIG — MODIFIE UNIQUEMENT CETTE ZONE
+   ============================================================ */
+const CONFIG = {
+  // Lien vers ton Google Doc (bouton qui apparaît après la vidéo)
+  googleDocUrl: "https://docs.google.com/document/d/TON_LIEN_ICI/edit",
+
+  // Lien vers ta playlist (Spotify, YouTube Music, etc.)
+  playlistUrl: "https://open.spotify.com/playlist/TON_LIEN_ICI",
+
+  // Lien direct vers ta vidéo (mp4). Si tu préfères YouTube/Vimeo,
+  // regarde la fonction "ouvrirVideo()" plus bas pour remplacer
+  // la balise <video> par un <iframe>.
+  videoUrl: "LIEN_DE_LA_VIDEO_ICI.mp4"
+};
+
+document.getElementById("docBtn").href = CONFIG.googleDocUrl;
+document.getElementById("playlistBtn").href = CONFIG.playlistUrl;
+document.getElementById("playlistBtn2").href = CONFIG.playlistUrl;
+document.querySelector("#mainVideo source").src = CONFIG.videoUrl;
+document.getElementById("mainVideo").load();
+
+/* ============================================================
+   COMPTE À REBOURS — minuit, heure de Paris
+   ============================================================ */
+function getParisNow(){
+  return new Date(new Date().toLocaleString("en-US", {timeZone:"Europe/Paris"}));
+}
+function getNextParisMidnight(){
+  const parisNow = getParisNow();
+  const target = new Date(parisNow);
+  target.setHours(24,0,0,0);
+  return target;
+}
+
+const mainBtn = document.getElementById("mainBtn");
+const mainBtnText = document.getElementById("mainBtnText");
+const mainHint = document.getElementById("mainHint");
+const countdownActive = document.getElementById("countdownActive");
+const countdownExpired = document.getElementById("countdownExpired");
+
+let unlocked = false;
+
+function tick(){
+  const parisNow = getParisNow();
+  const target = getNextParisMidnight();
+  const diff = target - parisNow;
+
+  if(diff <= 0 && !unlocked){
+    unlockButton();
+    return;
+  }
+
+  const d = Math.floor(diff / (1000*60*60*24));
+  const h = Math.floor((diff / (1000*60*60)) % 24);
+  const m = Math.floor((diff / (1000*60)) % 60);
+  const s = Math.floor((diff / 1000) % 60);
+
+  document.getElementById("cd-days").textContent = String(d).padStart(2,"0");
+  document.getElementById("cd-hours").textContent = String(h).padStart(2,"0");
+  document.getElementById("cd-mins").textContent = String(m).padStart(2,"0");
+  document.getElementById("cd-secs").textContent = String(s).padStart(2,"0");
+}
+
+function unlockButton(){
+  unlocked = true;
+  countdownActive.classList.add("hidden");
+  countdownExpired.classList.remove("hidden");
+  mainBtn.disabled = false;
+  mainBtn.classList.remove("locked");
+  mainBtnText.textContent = "▶ Lancer le commencement";
+  mainHint.textContent = "C'est ouvert — clique pour démarrer.";
+}
+
+setInterval(tick, 1000);
+tick();
+
+/* ============================================================
+   MODALE VIDÉO
+   ============================================================ */
+const videoModal = document.getElementById("videoModal");
+const mainVideo = document.getElementById("mainVideo");
+const afterVideo = document.getElementById("afterVideo");
+
+mainBtn.addEventListener("click", () => {
+  if(!unlocked) return;
+  videoModal.classList.remove("hidden");
+  afterVideo.classList.add("hidden");
+  mainVideo.currentTime = 0;
+  mainVideo.play().catch(()=>{ /* autoplay bloqué : l'utilisateur clique play manuellement */ });
+});
+
+mainVideo.addEventListener("ended", () => {
+  afterVideo.classList.remove("hidden");
+});
+
+document.getElementById("closeModal").addEventListener("click", () => {
+  videoModal.classList.add("hidden");
+  mainVideo.pause();
+});
+videoModal.addEventListener("click", (e) => {
+  if(e.target === videoModal){
+    videoModal.classList.add("hidden");
+    mainVideo.pause();
+  }
+});
+
+/* ============================================================
+   EFFET 3D — parallax du logo au mouvement de souris
+   ============================================================ */
+const logoWrap = document.getElementById("logoWrap");
+const hero = document.getElementById("hero");
+
+hero.addEventListener("mousemove", (e) => {
+  const rect = hero.getBoundingClientRect();
+  const x = (e.clientX - rect.left) / rect.width - 0.5;
+  const y = (e.clientY - rect.top) / rect.height - 0.5;
+  logoWrap.style.transform = `rotateY(${x*10}deg) rotateX(${-y*10}deg)`;
+});
+hero.addEventListener("mouseleave", () => {
+  logoWrap.style.transform = "rotateY(0deg) rotateX(0deg)";
+});
+
+/* ============================================================
+   EFFET 3D — tilt sur les cartes d'affiches
+   ============================================================ */
+document.querySelectorAll(".poster-card").forEach(card => {
+  card.addEventListener("mousemove", (e) => {
+    const r = card.getBoundingClientRect();
+    const x = (e.clientX - r.left) / r.width - 0.5;
+    const y = (e.clientY - r.top) / r.height - 0.5;
+    card.style.transform = `rotateY(${x*14}deg) rotateX(${-y*14}deg) scale(1.03)`;
+  });
+  card.addEventListener("mouseleave", () => {
+    card.style.transform = "rotateY(0) rotateX(0) scale(1)";
+  });
+});
+</script>
+</body>
+</html>
