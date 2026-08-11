@@ -645,16 +645,13 @@ document.getElementById("mainVideo").load();
 /* ============================================================
    COMPTE À REBOURS — minuit, heure de Paris
    ============================================================ */
-function getParisNow(){
+ function getParisNow(){
   return new Date(new Date().toLocaleString("en-US", {timeZone:"Europe/Paris"}));
 }
-function getNextParisTarget(){
+function getNextParisMidnight(){
   const parisNow = getParisNow();
   const target = new Date(parisNow);
-  target.setHours(19, 11, 0, 0);
-  if (target <= parisNow) {
-    target.setDate(target.getDate() + 1);
-  }
+  target.setHours(24,0,0,0);
   return target;
 }
 const mainBtn = document.getElementById("mainBtn");
@@ -665,7 +662,7 @@ const countdownExpired = document.getElementById("countdownExpired");
 let unlocked = false;
 function tick(){
   const parisNow = getParisNow();
-  const target = getNextParisTarget();
+  const target = getNextParisMidnight();
   const diff = target - parisNow;
   if(diff <= 0 && !unlocked){
     unlockButton();
@@ -691,7 +688,6 @@ function unlockButton(){
 }
 setInterval(tick, 1000);
 tick();
-
 /* ============================================================
    MODALE VIDÉO
    ============================================================ */
