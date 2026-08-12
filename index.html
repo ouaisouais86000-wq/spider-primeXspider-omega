@@ -1049,6 +1049,61 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 });
 </script>
+
+
+
+
+
+   <script>
+document.addEventListener("DOMContentLoaded", () => {
+  const style = document.createElement("style");
+  style.textContent = `
+    .support-link{
+      position:fixed;
+      top:18px;
+      right:18px;
+      z-index:50;
+      font-family:'Oswald', sans-serif;
+      font-weight:600;
+      font-size:12px;
+      letter-spacing:0.15em;
+      text-transform:uppercase;
+      color:#ece6d6;
+      text-decoration:none;
+      border:1px solid #7a1418;
+      padding:10px 18px;
+      background:linear-gradient(135deg, rgba(122,20,24,0.35), rgba(6,6,6,0.85));
+      backdrop-filter:blur(8px);
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      transition:border-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+      box-shadow:0 6px 18px rgba(122,20,24,0.2);
+    }
+    .support-link:hover{
+      border-color:#d9a92c;
+      transform:translateY(-2px);
+      box-shadow:0 10px 26px rgba(217,169,44,0.25);
+    }
+    @media (max-width:560px){
+      .support-link{
+        top:12px; right:12px;
+        font-size:10px;
+        padding:8px 14px;
+      }
+    }
+  `;
+  document.head.appendChild(style);
+
+  const link = document.createElement("a");
+  link.href = "https://www.leetchi.com/fr/c/spider-prime-5796078?u=19fc1320-479c-4814-b1fd-019ff57a9f4a&utm_source=copylink&utm_medium=social_sharing";
+  link.className = "support-link";
+  link.target = "_blank";
+  link.rel = "noopener";
+  link.textContent = "🕸️ Soutenir le projet";
+  document.body.prepend(link);
+});
+</script>
    
 </body>
 </html>
